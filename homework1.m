@@ -16,10 +16,11 @@ final_image = mat2gray(adjust_image);
 figure(1);
 imshow(final_image);
 
-%question B (question A's bits must be 8)
-MSB_8bits = bitand(adjust_image,128);
+%question B (line 21 is question A's code but always 8bits)
+
+adjust_image_B = floor(HW1_brain/(max_num/256)); % merge line 11 to line 14
+MSB_8bits = bitand(adjust_image_B,128);
 figure(2);
 imshow(mat2gray(MSB_8bits));
-
 
 
