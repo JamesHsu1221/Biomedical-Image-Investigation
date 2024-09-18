@@ -2,8 +2,8 @@
 load("HW1_brain.mat");
 
 %question A
-
-bits = 8;    % intensity level setting（1~8）
+level="Please enter the intensity level : (you can enter 1~8, it will power of 2)" ;
+bits = input(level);    % intensity level setting（1~8）
 
 intensity_level = power(2,bits);
 max_num = max(HW1_brain(:))+0.001;    %加0.001是為了不要讓最大的那一個數變額外的整數
