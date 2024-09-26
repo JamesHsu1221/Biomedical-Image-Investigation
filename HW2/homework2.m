@@ -7,27 +7,33 @@ first_data = HW2_brain;
 [number , value] = imhist(first_data);    %將原資料分析出個數值的數量
 figure(1);
 bar(value,number);    %畫出各數值的數量長條圖
-title('original histogram' );
+title('Original histogram' );
 xlabel('value');
 ylabel('quantity');
 
 %question b
 
+%自行設計的演算法
 pixels = numel(first_data);    %計算圖片像素
 pdf = number / pixels;    %計算pdf
 cdf = cumsum(pdf);    %計算cdf，利用累加的函數
 TF = uint8(round(cdf*255));    %將算出的cdf範圍變成[0,255]當作transfer function
-adjust_data = TF(first_data+1);    %+1是因為原始資料從0開始，但TF從1開始
+adjust_data = TF((first_data)+1);    %+1是因為原始資料從0開始，但TF從1開始
 
-adjust_data_by_histeq = histeq(first_data);    %利用histeq進行轉換
+%利用histeq進行轉換
+adjust_data_by_histeq = histeq(first_data);
 
 %show the image
 figure(2);
-subplot(1,2,1);
+subplot(1,3,1);
+imshow(first_data);
+title('Original image');
+
+subplot(1,3,2);
 imshow(adjust_data);
 title('Histogram Normalization');
 
-subplot(1,2,2);
+subplot(1,3,3);
 imshow(adjust_data_by_histeq);
 title('Histogram Normalization by histeq');
 
