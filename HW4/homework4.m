@@ -66,6 +66,31 @@ imshow (abs(Q3_after_filter_20_reverse),[]), title('Gaussian lowpass D0=20'), co
 subplot(1,2,2);
 imshow (abs(Q3_after_filter_40_reverse),[]), title('Gaussian lowpass D0=40'), colorbar;
 
+% question d
 
+% create a gaussian highpass filter
+Q4_gaussian_filter_20 = 1 - Q3_gaussian_filter_20;
+Q4_gaussian_filter_40 = 1 - Q3_gaussian_filter_40;
 
+Q4_after_filter_20 = img_fourier_shift .* Q4_gaussian_filter_20;
+Q4_after_filter_40 = img_fourier_shift .* Q4_gaussian_filter_40;
+Q4_after_filter_20_reverse = ifft2(ifftshift(Q4_after_filter_20));
+Q4_after_filter_40_reverse = ifft2(ifftshift(Q4_after_filter_40));
 
+figure(5);
+subplot(1,2,1);
+imshow (abs(Q4_after_filter_20_reverse),[]), title('Gaussian highpass D0=20'), colorbar;
+subplot(1,2,2);
+imshow (abs(Q4_after_filter_40_reverse),[]), title('Gaussian highpass D0=40'), colorbar;
+
+% question e
+sobel = [-1 0 1;-2 0 2;-1 0 1];
+sobel_fourier = fft2(sobel,X,Y);
+after_sobel = img_fourier.*sobel_fourier;
+after_sobel_inverse = ifft2(after_sobel);
+
+figure(6);
+subplot(1,2,1);
+mesh(abs(fftshift(sobel_fourier))), title('mesh of fourier sobel');
+subplot(1,2,2);
+imshow (abs(after_sobel_inverse),[]),title('sobel'), colorbar;
